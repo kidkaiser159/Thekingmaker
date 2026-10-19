@@ -151,9 +151,9 @@ box-shadow:inset 0 0 0 3px var(--crim),inset 0 0 0 4px #9A815688;transition:filt
     <p data-r>มงกุฎกลับหัว ถูกเส้นตรงคล้ายดาบแทงทะลุ วาดด้วยหมึกแดงเข้ม</p>
     <div class="endrow"><p data-r class="last">The Architect กลับมาแล้ว</p><span class="asset miss sign" data-r data-k="icon" data-ph="ICON"><img alt="ตราสัญลักษณ์ THE ARCHITECT"></span></div>
     <section class="invite" id="inv">
-      <h2>ถ้าคุณอ่านมาถึงตรงนี้</h2></p>
-      <h2>แปลว่าคุณถูกเลือกแล้ว</h2></p>
-      <h2>คำถามเดียวที่เหลือคือ</h2></p>
+      <h2>ถ้าคุณอ่านมาถึงตรงนี้</h2>
+      <h2>แปลว่าคุณถูกเลือกแล้ว</h2>
+      <h2>คำถามเดียวที่เหลือคือ</h2>
       <h2>คุณจะยืนข้างเขาหรือไม่</h2>
       <button class="accept" id="accept">ยอมรับ</button>
     </section>
@@ -218,17 +218,17 @@ const TEST=[
 {t:`"สาม..." เขานิ่งไปนานกว่าที่ควร`,d:5200},
 {t:`“The Kingmaker คือสิ่งที่ The Architect สร้างขึ้นเอง”`,d:3600,c:"turn"},
 {t:`"แต่ Kingmaker เพิ่งปรากฏตัวเมื่อไม่กี่สัปดาห์ก่อนนะครับ" ชายหนุ่มผู้หนึ่งแย้งขึ้น`,d:3200},
-{t:`ชายสูงวัยหันไปมองเขาครู่หนึ่ง ก่อนตอบด้วยน้ำเสียงเรียบนิ่ง`,d:2800}]},
+{t:`ชายสูงวัยหันไปมองเขาครู่หนึ่ง ก่อนตอบด้วยน้ำเสียงเรียบนิ่ง`,d:2800},
 {t:`"ฉันรู้ แต่ฉันบอกได้แค่ว่า The Architect เริ่มเปิดไพ่ลับในมือแล้ว และไพ่ใบนั้นอาจมีชื่อว่า The Kingmaker"`},
 {t:`ทั้งห้องเงียบงัน ไม่มีใครกล้าสบตากัน เพราะทุกคนต่างคิดเรื่องเดียวกัน`},
-{t:`เหยื่อคนต่อไป อาจเป็นพวกเขาเอง`},  
+{t:`เหยื่อคนต่อไป อาจเป็นพวกเขาเอง`}]},  
   
 {cls:"t3",h:`ชายแก่ที่คนในโลกใต้ดินเรียกว่า “The Mentor” หยิบกระดาษตราหมึกแดงขึ้นมาดู`,lines:[
 {t:`"ตรานี้เป็นของ The Architect พวก Kingmaker แค่เอามาใช้ ฉันเห็นมันมาตั้งแต่สมัยที่มีแค่จดหมายไม่กี่ฉบับ กับคนไม่กี่คนที่ล่มจมโดยไม่รู้ตัว"`,fx:"lift",d:1800},
-{t:`"ถ้าตราเป็นของเขามาก่อน ก็แปลว่าเขาไม่ได้ทำงานให้ Kingmaker" เด็กหนุ่มว่าr`,d:3600},
+{t:`"ถ้าตราเป็นของเขามาก่อน ก็แปลว่าเขาไม่ได้ทำงานให้ Kingmaker" เด็กหนุ่มว่า`,d:3600},
 {t:`The Mentor ลูบนิ้วไปตามรอยหมึกแดง`},  
 {t:`"หรือไม่อย่างนั้น... Kingmaker ก็คือสิ่งที่เขาสร้างขึ้นมาเอง"`,d:3600},
-{t:`ห้องเงียบไปครู่หนึ่ง`d:2800},    
+{t:`ห้องเงียบไปครู่หนึ่ง`,d:2800},    
 {t:`"แล้วทำไมเขาถึงขยับตัวมากขึ้นตอนนี้ล่ะครับ"`,d:3600},
 {t:`"หกเดือนก่อน ไม่มีใครรู้ว่าเกิดอะไรขึ้นในคฤหาสน์หลังนั้น รู้แค่ว่าหลังจากคืนนั้น The Architect ก็เริ่มเดินหมาก แล้วพวกที่เรียกตัวเองว่า Kingmaker ก็ปรากฏตัว"`,d:3200},
 {t:`The Mentor สวมหมวก เดินไปที่ประตู`,d:3200},
@@ -238,7 +238,7 @@ const TEST=[
 {t:`"เพราะพวกเขาคือคนกลุ่มเดียวกัน" The Mentor หันกลับมามองเป็นครั้งสุดท้าย "และอาจมีคนของเขาอยู่ในห้องนี้แล้วก็ได้"`,d:4200},
 {t:`ประตูปิดลง เด็กหนุ่มนั่งนิ่ง ไม่กล้าแม้แต่จะหันไปมองเงาของตัวเอง"`,d:5600,c:"final"}]}
 ];
-const VIDEO="4I-GGTCV0K0?si=C_rfQ-qd27mmVOfj&t=10";
+const VIDEO="4I-GGTCV0K0",START=10;
 
 /* ===== helpers & scene state ===== */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -271,9 +271,9 @@ function afail(){if(AU.failed)return;AU.failed=true;ast.textContent="เล่�
  AU.a=new Audio("assets/ambient.mp3");AU.a.loop=true;aapply();
  AU.a.play().then(()=>{AU.playing=true;ast.textContent="";aui()}).catch(()=>{AU.a=null;ast.textContent="ไม่มีเสียงบรรยากาศ";aui()})}
 function ainit(){if(AU.p)return;AU.p=new YT.Player("yt",{width:200,height:200,videoId:VIDEO,
- playerVars:{controls:0,loop:1,playlist:VIDEO,playsinline:1,rel:0,disablekb:1},
+ playerVars:{controls:0,start:START,playsinline:1,rel:0,disablekb:1},
  events:{onReady:()=>{AU.ready=true;aapply();if(AU.want)AU.p.playVideo()},
- onStateChange:e=>{AU.playing=e.data===1;if(AU.playing)ast.textContent="";aui()},onError:afail}})}
+ onStateChange:e=>{if(e.data===0){AU.p.seekTo(START,true);AU.p.playVideo();return}AU.playing=e.data===1;if(AU.playing)ast.textContent="";aui()},onError:afail}})}
 window.onYouTubeIframeAPIReady=ainit;
 function astart(){AU.want=true;if(AU.ready)return AU.p.playVideo();
  if(!document.getElementById("ytapi")){const s=document.createElement("script");s.id="ytapi";s.src="https://www.youtube.com/iframe_api";s.onerror=afail;document.head.append(s)}
