@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>THE ARCHITECT — THE KINGMAKER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Noto+Serif+Thai:wght@400;600&display=swap">
+<style>
+:root{--black:#0B0A09;--mah:#211711;--parch:#D7C5A2;--ivory:#E9DEC8;--crim:#741D24;--brass:#9A8156;--smoke:#77716B;
+--serif:"Noto Serif Thai","Cormorant Garamond",Georgia,serif;--head:"Cormorant Garamond","Noto Serif Thai",Georgia,serif}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--black);color:var(--ivory);font-family:var(--serif);overflow:hidden}
+button{font:inherit;cursor:pointer;color:inherit;background:none;border:0}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.scene{position:fixed;inset:0;display:flex;opacity:0;visibility:hidden;transition:opacity 1.2s ease,visibility 0s 1.2s}
+.scene.on{opacity:1;visibility:visible;transition:opacity 1.2s ease}
+.sc{font-family:var(--head);font-variant:small-caps;letter-spacing:.18em}
+/* assets */
+.asset{display:block}.asset img{display:block;width:100%;height:auto}
+.asset.miss img{display:none}
+.asset.miss{aspect-ratio:1;border:1px dashed var(--brass);display:grid;place-items:center;text-align:center;font:600 11px var(--head);color:var(--brass);padding:4px}
+.asset.miss::after{content:attr(data-ph)}
+/* global fx */
+#grain{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.1;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+#vig{position:fixed;inset:0;z-index:49;pointer-events:none;background:radial-gradient(ellipse at center,transparent 45%,#000c 100%)}
+.dust{position:fixed;inset:0;z-index:48;pointer-events:none;overflow:hidden}
+.dust i{position:absolute;bottom:-10px;border-radius:50%;background:var(--ivory);opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{opacity:0;transform:translate(0,0)}20%{opacity:.3}100%{opacity:0;transform:translate(30px,-110vh)}}
+/* scene 1 */
+#s-env{align-items:center;justify-content:center;flex-direction:column;gap:2.2rem;
+background:repeating-linear-gradient(90deg,#00000022 0 2px,transparent 2px 90px),radial-gradient(ellipse at 50% 45%,#3a2618 0,var(--mah) 45%,var(--black) 100%)}
+#s-env::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 42%,#d9993a40,transparent 45%);animation:fl 4s infinite}
+@keyframes fl{0%,100%{opacity:.9}35%{opacity:.7}60%{opacity:1}80%{opacity:.78}}
+.hint{font-size:1.05rem;color:var(--parch);letter-spacing:.08em;opacity:.8;position:relative}
+.env{position:relative;width:min(86vw,440px);aspect-ratio:3/2;perspective:900px;filter:drop-shadow(0 30px 40px #000)}
+.env.nudge{animation:nudge .35s}
+@keyframes nudge{40%{transform:translateY(4px) rotate(-.6deg)}}
+.env>*{position:absolute}
+.env .back{inset:0;background:#a8946b;z-index:1}
+.env .sheet{left:6%;right:6%;top:6%;bottom:6%;background:var(--ivory);z-index:2;transition:transform 1s .6s cubic-bezier(.4,0,.2,1)}
+.env.open .sheet{transform:translateY(-58%)}
+.env .front{inset:0;background:linear-gradient(#c8b48c,#a8946b);clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%);z-index:3}
+.env .flap{inset:0 0 44% 0;background:linear-gradient(#cdb98f,#b39e74);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;z-index:4;transition:transform .8s cubic-bezier(.5,0,.2,1),z-index 0s .4s}
+.env.open .flap{transform:rotateX(180deg);z-index:0}
+.env .logo{left:50%;top:50%;height:60%;transform:translate(-50%,-46%);z-index:5;transition:opacity .5s;filter:drop-shadow(0 1px 1px #0005)}
+.env.open .logo{opacity:0}
+/* scene 2-3 */
+#s-letter{overflow-y:auto;background:radial-gradient(ellipse at 50% 30%,#3a2618,var(--mah) 50%,var(--black))}
+.wrap{min-height:100%;width:100%;display:grid;place-items:center;padding:6vh 4vw 12vh}
+.doc{width:min(680px,100%);padding:clamp(28px,6vw,64px);color:#2b1d12;line-height:2;font-size:clamp(1rem,2.2vw,1.15rem);
+background:radial-gradient(ellipse at center,transparent 55%,#5a3d1d55),linear-gradient(100deg,#d7c5a2,#e0d0ae 40%,#cfbb94);
+box-shadow:0 30px 80px #000c,inset 0 0 60px #7a5a2a66}
+.doc p{margin-bottom:1.2em;opacity:0;transform:translateY(8px);transition:opacity 1.4s,transform 1.4s}
+.doc p.in{opacity:1;transform:none}
+.doc .date{font-family:var(--head);font-weight:700;letter-spacing:.14em;color:var(--crim)}
+.doc .last{color:var(--crim);font-weight:600;font-size:1.2em}
+.invite{margin-top:2.2em;padding-top:1.6em;border-top:1px solid #741D2466;text-align:center;opacity:0;pointer-events:none;transition:opacity 1.6s}
+.invite.in{opacity:1;pointer-events:auto}
+.invite h2{font-size:clamp(1.15rem,3vw,1.5rem);font-weight:600;line-height:1.7}
+.accept{margin-top:1.4em;padding:.8em 3em;background:var(--crim);color:var(--ivory);border:1px solid var(--brass);letter-spacing:.2em;font-size:1.2rem;
+box-shadow:inset 0 0 0 3px var(--crim),inset 0 0 0 4px #9A815688;transition:filter .3s,opacity .6s}
+.accept:hover,.accept:focus-visible{filter:brightness(1.25)}
+.accept:disabled{cursor:default}.accept.sealed{opacity:0}
+.skip{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:60;font-size:.9rem;color:var(--parch);opacity:.7;padding:6px 14px}
+.skip:hover{opacity:1}
+.thump{animation:thump .3s}
+@keyframes thump{25%{transform:translateY(6px)}60%{transform:translateY(-3px)}}
+.stamp{--s:clamp(130px,20vw,160px);position:fixed;z-index:60;width:var(--s);height:var(--s);display:grid;place-items:center;pointer-events:none;transform:translate(-50%,-50%);animation:drop .9s cubic-bezier(.55,0,.9,.6) forwards;transition:opacity 1s}
+.stamp.out{opacity:0}
+@keyframes drop{0%{transform:translate(-50%,calc(-50% - 75vh)) scale(2.8) rotate(-10deg);opacity:0}15%{opacity:1}62%{transform:translate(-50%,-50%) scale(1)}72%{transform:translate(-50%,-50%) scale(.88)}100%{transform:translate(-50%,-50%) scale(1)}}
+.stamp::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(#e3d4b3,#cdb88e 72%);box-shadow:0 0 0 4px var(--crim),0 0 40px 6px #741D24cc,0 14px 30px #000;opacity:.35;transition:.18s}
+.stamp.hit::before{opacity:1}
+.stamp .asset{position:relative;height:calc(var(--s)*.8)}
+.ring{position:fixed;z-index:59;border:2px solid var(--crim);border-radius:50%;width:20px;height:20px;transform:translate(-50%,-50%);animation:ring .8s ease-out forwards;pointer-events:none}
+@keyframes ring{to{width:420px;height:420px;opacity:0;border-width:0}}
+/* kingmaker */
+#s-king{background:#050404;align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:3vh 3vw}
+#s-king .asset{width:fit-content;margin:auto}
+#s-king .asset img{width:auto;max-width:94vw;max-height:80vh}
+#s-king .asset.miss{width:min(70vw,360px);aspect-ratio:3/4}
+#s-king.on .asset{animation:reveal 6s ease-out both}
+@keyframes reveal{from{opacity:0;transform:scale(1.08);filter:brightness(.2)}to{opacity:1;transform:none;filter:none}}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.btn{padding:.6em 1.6em;border:1px solid var(--brass);color:var(--parch);letter-spacing:.1em;background:#0008;transition:opacity 1.2s,background .3s}
+.btn:hover{background:#741D2466}
+.late{opacity:0;pointer-events:none}.late.show{opacity:1;pointer-events:auto}
+/* testimonies */
+#s-test{flex-direction:column;transition:opacity 1.2s,filter 3s}
+#s-test .bg{position:absolute;inset:0;transition:filter 3s}
+.t1 .bg{background:radial-gradient(ellipse 40% 30% at 50% 6%,#c7822e88,transparent 70%),radial-gradient(ellipse 30% 25% at 15% 30%,#a8651f44,transparent 70%),repeating-linear-gradient(90deg,#1a110b 0 38px,#22160d 38px 40px),#0f0a07}
+.t2 .bg{background:radial-gradient(ellipse at 80% 85%,#7a3a1a55,transparent 45%),linear-gradient(90deg,#2a1810 0 10%,transparent 10% 90%,#2a1810 90%),repeating-linear-gradient(0deg,#2a1810 0 3px,#130b08 3px 44px)}
+.t3 .bg{background:radial-gradient(ellipse 45% 55% at 50% 30%,#c99a4a44,transparent 70%),linear-gradient(0deg,#2a1b11 0 14%,transparent 14%),#0a0706}
+.t3.tense .bg{filter:brightness(.55)}
+.ember{display:none;position:absolute;right:12%;bottom:12%;width:64px;height:7px;border-radius:3px;background:linear-gradient(90deg,#e0561c 0 12%,#cbbfa5 12% 30%,#5b3a1e 30%);box-shadow:-6px 0 18px 3px #d9561c88}
+.t2 .ember{display:block}
+.smoke{display:none;position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.t1 .smoke,.t2 .smoke{display:block}
+.smoke::before,.smoke::after{content:"";position:absolute;width:80%;height:40%;left:-10%;top:10%;background:radial-gradient(#cdbd9f40,transparent 70%);filter:blur(30px);animation:drift 24s ease-in-out infinite alternate}
+.smoke::after{top:45%;left:30%;animation-duration:30s;animation-delay:-8s}
+@keyframes drift{to{transform:translateX(25%) scale(1.2)}}
+.tbox{position:relative;flex:1;overflow-y:auto;width:min(680px,92vw);margin:0 auto;padding:8vh 0 3vh}
+.tbox h2{font-size:clamp(1rem,2.4vw,1.2rem);font-weight:600;color:var(--brass);letter-spacing:.04em;margin-bottom:1.6em;line-height:1.7}
+.tbox p{font-size:clamp(1.05rem,2.4vw,1.3rem);line-height:1.95;margin-bottom:1.1em;text-shadow:0 2px 8px #000;opacity:0;transform:translateY(8px);transition:opacity 1.6s,transform 1.6s}
+.tbox p.in{opacity:1;transform:none}
+.tbox p.turn{font-size:1.25em;color:#fff;letter-spacing:.04em}
+.tbox p.final{font-size:1.3em;color:#fff;text-shadow:0 0 24px var(--crim),0 2px 8px #000}
+.pobj{display:none;width:min(46vw,190px);margin:0 auto 2em;box-shadow:0 14px 40px #000;transition:transform 1.4s,box-shadow 1.4s}
+.t3 .pobj{display:block}
+.pobj .asset{}
+.pobj.lift{transform:translateY(-12px) rotate(-2deg);box-shadow:0 20px 50px #000,0 0 50px #741D2488}
+.tnav{position:relative;display:flex;justify-content:center;gap:1rem;padding:10px 12px 64px;flex-wrap:wrap}
+[hidden]{display:none!important}
+/* audio + loader */
+#au{position:fixed;top:10px;right:10px;z-index:70;display:flex;align-items:center;gap:8px;font-size:.8rem;background:#0b0a09cc;border:1px solid #9A815655;padding:5px 10px}
+#au input{width:70px;accent-color:var(--brass)}
+#au button{color:var(--parch);padding:3px 6px}
+#yt{position:fixed;left:-400px;top:0;width:200px;height:200px}
+.loader{position:fixed;bottom:10px;left:10px;z-index:70;font-size:.8rem;background:#0b0a09ee;border:1px solid var(--brass);padding:8px;max-width:260px}
+.loader label{display:block;margin-top:6px}
+@media(prefers-reduced-motion:reduce){*,::before,::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.dust{display:none}}
+.crop{overflow:hidden;aspect-ratio:1}.crop img{width:132%;max-width:none;margin:-16% 0 0 -16%}
+.env .logo,.stamp .asset,.pobj .asset{}
+.accept{margin-top:4em}
+.asset[data-k=icon]{aspect-ratio:304/859}
+</style>
+</head>
+<body>
+<div class="dust" id="dust" aria-hidden="true"></div><div id="vig"></div><div id="grain"></div>
+
+<section class="scene on" id="s-env" aria-label="ซองจดหมาย">
+  <button class="env" id="env" aria-label="เปิดซองจดหมาย">
+    <span class="back"></span><span class="sheet"></span><span class="front"></span><span class="flap"></span>
+    <span class="asset miss logo" data-k="icon" data-ph="ICON"><img alt="ตราสัญลักษณ์ THE ARCHITECT บนซองจดหมาย"></span>
+  </button>
+  <p class="hint">คุณได้รับจดหมายฉบับหนึ่ง</p>
+</section>
+
+<section class="scene" id="s-letter" aria-label="จดหมาย">
+  <div class="wrap" id="wrap"><article class="doc" id="doc">
+    <p data-r class="date">ARKHAM, MASSACHUSETTS — เมษายน 1923</p>
+    <p data-r>หกเดือนหลังคืนที่ Harrow Manor หายไปทั้งหลัง</p>
+    <p data-r>หกเดือนที่ผ่านมา Arkham พยายามลืม</p>
+    <p data-r>เรื่องคฤหาสน์ถูกฝังไว้ใต้แฟ้มตำรวจและคำให้การที่ไม่มีใครพิสูจน์ได้ จนกระทั่งไม่กี่สัปดาห์ก่อน</p>
+    <p data-r>นักการเงินผู้ทรงอิทธิพลถูกเปิดโปงเรื่องทุจริต เอกสารลับของนักการเมืองถูกส่งถึงหนังสือพิมพ์โดยไม่ทราบผู้ส่ง คนที่เคยเชื่อว่าตัวเองอยู่เหนือกฎหมายสูญเสียทุกอย่างในไม่กี่วัน</p>
+    <p data-r>และทุกที่ มีสัญลักษณ์เดียวกันทิ้งไว้</p>
+    <p data-r>มงกุฎกลับหัว ถูกเส้นตรงคล้ายดาบแทงทะลุ วาดด้วยหมึกแดงเข้ม</p>
+    <p data-r class="last">The Architect กลับมาแล้ว</p>
+    <section class="invite" id="inv">
+      <h2>คุณพร้อมจะเข้าร่วมกับ THE KINGMAKER หรือไม่</h2>
+      <button class="accept" id="accept">ยอมรับ</button>
+    </section>
+  </article></div>
+  <button class="skip" id="skip">แสดงข้อความทั้งหมด</button>
+</section>
+
+<section class="scene" id="s-king" aria-label="THE KINGMAKER">
+  <span class="asset miss" data-k="king" data-ph="THE KINGMAKER IMAGE"><img alt="THE KINGMAKER"></span>
+  <button class="btn late" id="kn">ดำเนินเรื่องต่อ</button>
+</section>
+
+<section class="scene t1" id="s-test" aria-label="คำบอกเล่า">
+  <div class="bg"></div><div class="smoke"></div><div class="ember"></div>
+  <main class="tbox" id="tbox" aria-live="polite">
+    <h2 id="th"></h2>
+    <div class="pobj" id="pobj"><span class="asset crop miss" data-k="logo" data-ph="LOGO"><img alt="ตราหมึกแดงของ THE ARCHITECT บนกระดาษ"></span></div>
+    <div id="tl"></div>
+  </main>
+  <nav class="tnav">
+    <button class="btn" id="tb">‹ ย้อนกลับ</button>
+    <button class="btn" id="tn">อ่านต่อ</button>
+    <button class="btn" id="rp" hidden>เริ่มต้นประสบการณ์อีกครั้ง</button>
+  </nav>
+</section>
+
+<div id="au" role="group" aria-label="เสียงบรรยากาศ">
+  <button id="aplay">เปิดเสียงบรรยากาศ</button>
+  <button id="amute" aria-pressed="false" hidden>ปิดเสียง</button>
+  <input id="avol" type="range" min="0" max="100" aria-label="ระดับเสียง">
+  <span id="ast" role="status"></span>
+</div>
+<div id="yt"></div>
+
+<details class="loader" id="ld" hidden open><summary>ไฟล์ภาพ (ไม่พบใน assets/)</summary>\1<label>THE ARCHITECT ICON (ซอง/ตราประทับ) <input type="file" accept="image/*" data-k="icon"></label>\1<label>THE ARCHITECT LOGO (กระดาษในเนื้อเรื่อง) <input type="file" accept="image/*" data-k="logo"></label>
+  <label>THE KINGMAKER <input type="file" accept="image/*" data-k="king"></label>
+</details>
+
+<script>
+"use strict";
+/* ===== NARRATIVE CONTENT (edit here) ===== */
+const TEST=[
+{cls:"t1",h:`1. บาร์ใต้ดินใกล้ท่าเรือ Arkham`,lines:[
+{t:`"มีชื่อใหม่" ชายเสื้อกั๊กเทาวางแก้วลง “The Kingmaker”`},
+{t:`"แก๊งใหม่?"`},
+{t:`"ไม่มีใครรู้ รู้แค่ว่าเดือนก่อน ชายที่ไม่มีใครรู้จักซื้อบริษัทขนส่งที่ใกล้เจ๊ง สัปดาห์ต่อมาได้สัญญาท่าเรือมูลค่ามหาศาล ตอนนี้กำลังคุยกับธนาคารสองแห่ง คู่แข่งที่ขวางทางเขาถอนตัวหมดแล้ว"`},
+{t:`"แล้วไง"`},
+{t:`"ฉันเจอเรื่องแบบเดียวกันอีกสามคน ไม่มีใครรู้จักพวกเขามาก่อน แต่จู่ ๆ ก็ได้สิ่งที่คนอื่นไขว่คว้ามาทั้งชีวิต"`},
+{t:`เขาหยุด`,d:2800},
+{t:`"แกจะบอกว่ามีคนกำลังเลือกราชาองค์ใหม่"`},
+{t:`"ฉันจะบอกว่า ถ้าแกมีอำนาจแล้วใช้ในทางที่ผิด ตอนนี้แกควรเริ่มกลัวได้แล้ว`,d:3200,c:"turn"}]},
+{cls:"t2",h:`2. ห้องสูบบุหรี่ในสโมสรสุภาพบุรุษ`,lines:[
+{t:`"คนหนึ่งทำลายผู้มีอำนาจ อีกคนสร้างผู้มีอำนาจใหม่ แล้วทั้งสองก็โผล่ขึ้นมาพร้อมกัน" ชายสูงวัยวางซิการ์ "มีความเป็นไปได้สามอย่าง"`},
+{t:`“หนึ่ง บังเอิญ ซึ่งฉันไม่เชื่อ`},
+{t:`สอง เป็นพันธมิตรกัน The Kingmaker สร้าง The Architect เคลียร์ทาง`},
+{t:`สาม...” เขานิ่งไปนานกว่าที่ควร`,d:5200},
+{t:`“The Kingmaker คือสิ่งที่ The Architect สร้างขึ้นเอง”`,d:3600,c:"turn"},
+{t:`"แต่ Kingmaker เพิ่งปรากฏตัวเมื่อไม่กี่สัปดาห์ก่อนนะครับ"`,d:3200},
+{t:`"การที่เราเพิ่งได้ยินชื่อของบางสิ่ง ไม่ได้แปลว่ามันเพิ่งเกิด"`,d:2800}]},
+{cls:"t3",h:`3. ชายแก่ที่คนในวงการเรียกว่า "ครู" หยิบกระดาษตราหมึกแดงขึ้นมาดู`,lines:[
+{t:`"ตรานี้เป็นของ The Architect พวก Kingmaker แค่เอามาใช้ ฉันเห็นมันมาตั้งแต่สมัยที่มีแค่จดหมายไม่กี่ฉบับ กับคนไม่กี่คนที่ล่มจมโดยไม่รู้ตัว`,fx:"lift",d:1800},
+{t:`ถ้าตราเป็นของเขามาก่อน ก็แปลว่าเขาไม่ได้ทำงานให้ Kingmaker`,d:3600},
+{t:`หรือไม่อย่างนั้น... Kingmaker ก็คือสิ่งที่เขาสร้างขึ้นมาเอง"`,d:3600},
+{t:`"แล้วทำไมเขาถึงขยับตัวมากขึ้นตอนนี้ล่ะครับ" เด็กหนุ่มถาม`,d:3600},
+{t:`"หกเดือนก่อน ไม่มีใครรู้ว่าเกิดอะไรขึ้นในคฤหาสน์หลังนั้น`,d:3200},
+{t:`รู้แค่ว่าหลังจากคืนนั้น The Architect ก็เริ่มขยับหมาก`,d:3200},
+{t:`แล้วพวกที่เรียกตัวเองว่า Kingmaker ก็ปรากฏตัว"`,d:3200},
+{t:`ครูสวมหมวก เดินไปที่ประตู แล้วหยุด`,d:3600,fx:"tense"},
+{t:`"ถ้าแกเห็นตรานี้ อย่าเสียเวลาถามว่าเป็น The Architect หรือ Kingmaker`,d:4200},
+{t:`มือที่วาดอาจต่างกัน แต่พวกมันเป็นพวกเดียวกันแน่นอน"`,d:5600,c:"final"}]}
+];
+const VIDEO="4I-GGTCV0K0";
+
+/* ===== helpers & scene state ===== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let T=[],state="envelope",busy=false,ti=0,tdone=false;
+const sched=(f,ms)=>T.push(setTimeout(f,RM?Math.min(ms,50):ms));
+const clr=()=>{T.forEach(clearTimeout);T=[]};
+const MAP={envelope:"s-env",letter:"s-letter",invitation:"s-letter",stamping:"s-letter",kingmakerReveal:"s-king",
+testimonyOne:"s-test",testimonyTwo:"s-test",testimonyThree:"s-test",ending:"s-test"};
+function go(s){state=s;$$(".scene").forEach(e=>e.classList.toggle("on",e.id===MAP[s]))}
+
+/* ===== assets ===== */
+function setAsset(k,url){$$(`.asset[data-k=${k}]`).forEach(w=>{w.classList.remove("miss");w.firstElementChild.src=url})}
+$$(".asset img").forEach(i=>i.addEventListener("error",()=>{if(i.getAttribute("src"))i.parentElement.classList.add("miss")}));
+function probe(k,base){const ex=["png","jpg","jpeg","webp","svg"];(function t(n){
+ if(n>=ex.length){$("#ld").hidden=false;return}
+ const im=new Image();im.onload=()=>setAsset(k,im.src);im.onerror=()=>t(n+1);im.src=`assets/${base}.${ex[n]}`})(0)}
+probe("logo","architect-logo");probe("icon","architect-icon");probe("king","the-kingmaker");
+$$("#ld input").forEach(i=>i.addEventListener("change",()=>{if(i.files[0])setAsset(i.dataset.k,URL.createObjectURL(i.files[0]))}));
+
+/* ===== ambient audio (YouTube IFrame API; one player, never recreated) ===== */
+const AU={p:null,ready:false,want:false,playing:false,failed:false,a:null,
+ vol:+(sessionStorage.getItem("vol")??45),muted:sessionStorage.getItem("muted")==="1"};
+const ast=$("#ast");
+function aui(){$("#aplay").hidden=AU.playing||AU.failed&&!AU.a;$("#amute").hidden=!AU.playing;
+ $("#amute").textContent=AU.muted?"เปิดเสียง":"ปิดเสียง";$("#amute").setAttribute("aria-pressed",AU.muted);$("#avol").value=AU.vol}
+function aapply(){if(AU.ready){AU.p.setVolume(AU.vol);AU.muted?AU.p.mute():AU.p.unMute()}
+ if(AU.a){AU.a.volume=AU.vol/100;AU.a.muted=AU.muted}}
+function afail(){if(AU.failed)return;AU.failed=true;ast.textContent="เล่นจาก YouTube ไม่ได้ — ลอง assets/ambient.mp3";
+ AU.a=new Audio("assets/ambient.mp3");AU.a.loop=true;aapply();
+ AU.a.play().then(()=>{AU.playing=true;ast.textContent="";aui()}).catch(()=>{AU.a=null;ast.textContent="ไม่มีเสียงบรรยากาศ";aui()})}
+function ainit(){if(AU.p)return;AU.p=new YT.Player("yt",{width:200,height:200,videoId:VIDEO,
+ playerVars:{controls:0,loop:1,playlist:VIDEO,playsinline:1,rel:0,disablekb:1},
+ events:{onReady:()=>{AU.ready=true;aapply();if(AU.want)AU.p.playVideo()},
+ onStateChange:e=>{AU.playing=e.data===1;if(AU.playing)ast.textContent="";aui()},onError:afail}})}
+window.onYouTubeIframeAPIReady=ainit;
+function astart(){AU.want=true;if(AU.ready)return AU.p.playVideo();
+ if(!document.getElementById("ytapi")){const s=document.createElement("script");s.id="ytapi";s.src="https://www.youtube.com/iframe_api";s.onerror=afail;document.head.append(s)}
+ setTimeout(()=>{if(!AU.playing&&!AU.failed)ast.textContent="เสียงถูกบล็อก — กด “เปิดเสียงบรรยากาศ”"},4000)}
+$("#aplay").onclick=()=>{ast.textContent="";if(AU.a)AU.a.play();else astart()};
+$("#amute").onclick=()=>{AU.muted=!AU.muted;sessionStorage.setItem("muted",AU.muted?1:0);aapply();aui()};
+$("#avol").oninput=e=>{AU.vol=+e.target.value;AU.muted=false;sessionStorage.setItem("vol",AU.vol);aapply();aui()};
+aui();
+
+/* ===== scene 1 -> 2 ===== */
+$("#env").onclick=()=>{if(busy||state!=="envelope")return;busy=true;astart();
+ const e=$("#env");e.classList.add("nudge");sched(()=>e.classList.add("open"),350);
+ sched(()=>{go("letter");playLetter();busy=false},2300)};
+function playLetter(instant){clr();const ps=$$("#doc [data-r]"),inv=$("#inv");
+ ps.forEach(p=>p.classList.remove("in"));inv.classList.remove("in");let t=500;
+ ps.forEach(p=>{sched(()=>p.classList.add("in"),instant?0:t);t+=1500});
+ sched(()=>{inv.classList.add("in");if(state==="letter")state="invitation";
+  inv.scrollIntoView({behavior:RM?"auto":"smooth",block:"center"})},instant?0:t+300)}
+$("#skip").onclick=()=>{if(state==="letter"||state==="invitation")playLetter(true)};
+
+/* ===== scene 4: stamp ===== */
+$("#accept").onclick=()=>{if(state!=="invitation"||busy)return;busy=true;state="stamping";
+ const b=$("#accept");b.disabled=true;b.scrollIntoView({block:"center"});
+ const r=b.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+ const s=document.createElement("div");s.className="stamp";s.style.left=cx+"px";s.style.top=cy+"px";
+ s.append($(".asset[data-k=icon]").cloneNode(true));document.body.append(s);
+ sched(()=>{s.classList.add("hit");b.classList.add("sealed");$("#wrap").classList.add("thump");
+  const g=document.createElement("div");g.className="ring";g.style.left=cx+"px";g.style.top=cy+"px";document.body.append(g);
+  sched(()=>g.remove(),900)},RM?0:560);
+ sched(()=>{go("kingmakerReveal");s.classList.add("out");sched(()=>s.remove(),1200);$("#kn").classList.remove("show");sched(()=>$("#kn").classList.add("show"),5200)},2800)};
+$("#kn").onclick=()=>{$(".stamp")?.remove();playT(0);go("testimonyOne")};
+
+/* ===== scenes 5-7: testimonies ===== */
+const TS=["testimonyOne","testimonyTwo","testimonyThree"];
+function playT(i,instant){clr();ti=i;tdone=false;const D=TEST[i],S=$("#s-test"),box=$("#tbox");
+ S.className="scene on "+D.cls;$("#th").textContent=D.h;$("#pobj").classList.remove("lift");
+ const tl=$("#tl");tl.innerHTML="";$("#rp").hidden=true;$("#tn").hidden=false;$("#tn").textContent="อ่านต่อ";box.scrollTop=0;
+ const els=D.lines.map(l=>{const p=document.createElement("p");p.textContent=l.t;if(l.c)p.className=l.c;tl.append(p);return p});
+ const show=k=>{const l=D.lines[k];els[k].classList.add("in");
+  if(l.fx==="lift")$("#pobj").classList.add("lift");if(l.fx==="tense")S.classList.add("tense");
+  box.scrollTo({top:box.scrollHeight,behavior:RM||instant?"auto":"smooth"});if(k===els.length-1)fin()};
+ const fin=()=>{tdone=true;$("#tn").textContent="ดำเนินเรื่องต่อ";
+  if(i===2){$("#tn").hidden=true;sched(()=>{go("ending");$("#rp").hidden=false},instant?0:4500)}};
+ if(instant){D.lines.forEach((l,k)=>{els[k].classList.add("in");if(l.fx==="lift")$("#pobj").classList.add("lift");if(l.fx==="tense")S.classList.add("tense")});fin();return}
+ let t=700;D.lines.forEach((l,k)=>{if(k)t+=l.d??Math.min(900+l.t.length*28,4200);sched(()=>show(k),t)})}
+$("#tn").onclick=()=>{if(state==="ending")return;
+ if(!tdone){const i=ti;playT(i,true);return}
+ if(ti<2){playT(ti+1);go(TS[ti])}};
+$("#tb").onclick=()=>{if(ti>0){playT(ti-1,true);go(TS[ti]);if(ti===2){$("#tn").hidden=true;$("#rp").hidden=false}}
+ else{clr();go("kingmakerReveal");$("#kn").classList.add("show")}};
+$("#rp").onclick=()=>{clr();$(".stamp")?.remove();$$(".ring").forEach(e=>e.remove());busy=false;ti=0;tdone=false;
+ $("#env").className="env";$("#accept").disabled=false;$("#accept").classList.remove("sealed");$("#wrap").classList.remove("thump");
+ $$("#doc [data-r]").forEach(p=>p.classList.remove("in"));$("#inv").classList.remove("in");$("#kn").classList.remove("show");
+ $("#s-test").classList.remove("tense");go("envelope")};
+/* patch: back from testimony 1 when state label must follow ti */
+$("#tb").addEventListener("click",()=>{if(state.startsWith("testimony"))state=TS[ti]});
+
+/* dust */
+(()=>{const d=$("#dust");for(let i=0;i<26;i++){const e=document.createElement("i"),s=1+Math.random()*2;
+ e.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;animation-duration:${18+Math.random()*24}s;animation-delay:${-Math.random()*30}s`;d.append(e)}})();
+</script>
+</body>
+</html>
