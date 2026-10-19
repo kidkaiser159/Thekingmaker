@@ -127,6 +127,7 @@ box-shadow:inset 0 0 0 3px var(--crim),inset 0 0 0 4px #9A815688;transition:filt
 .endrow p{margin:0}
 .doc .sign{height:clamp(76px,12vh,100px);opacity:0;transform:translateY(8px);transition:opacity 1.8s .6s,transform 1.8s .6s;filter:drop-shadow(0 1px 1px #0003)}
 .doc .sign.in{opacity:1;transform:none}
+.tbox{scroll-padding-bottom:28px}
 </style>
 </head>
 <body>
@@ -311,13 +312,15 @@ const TS=["testimonyOne","testimonyTwo","testimonyThree"];
 function playT(i,instant){clr();ti=i;tdone=false;const D=TEST[i],S=$("#s-test"),box=$("#tbox");
  S.className="scene on "+D.cls;$("#th").textContent=D.h;$("#pobj").classList.remove("lift");
  const tl=$("#tl");tl.innerHTML="";$("#rp").hidden=true;$("#tn").hidden=false;$("#tn").textContent="อ่านต่อ";box.scrollTop=0;
- const els=D.lines.map(l=>{const p=document.createElement("p");p.textContent=l.t;if(l.c)p.className=l.c;tl.append(p);return p});
- const show=k=>{const l=D.lines[k];els[k].classList.add("in");
-  if(l.fx==="lift")$("#pobj").classList.add("lift");if(l.fx==="tense")S.classList.add("tense");
-  box.scrollTo({top:box.scrollHeight,behavior:RM||instant?"auto":"smooth"});if(k===els.length-1)fin()};
+ const mk=k=>{const l=D.lines[k],p=document.createElement("p");p.textContent=l.t;if(l.c)p.className=l.c;tl.append(p);return p};
+ const fxs=l=>{if(l.fx==="lift")$("#pobj").classList.add("lift");if(l.fx==="tense")S.classList.add("tense")};
+ const show=k=>{const l=D.lines[k],stick=box.scrollHeight-box.scrollTop-box.clientHeight<90;
+  const p=mk(k);void p.offsetWidth;p.classList.add("in");fxs(l);
+  if(stick)p.scrollIntoView({block:"nearest",behavior:RM?"auto":"smooth"});
+  if(k===D.lines.length-1)fin()};
  const fin=()=>{tdone=true;$("#tn").textContent="ดำเนินเรื่องต่อ";
   if(i===2){$("#tn").hidden=true;sched(()=>{go("ending");$("#rp").hidden=false},instant?0:4500)}};
- if(instant){D.lines.forEach((l,k)=>{els[k].classList.add("in");if(l.fx==="lift")$("#pobj").classList.add("lift");if(l.fx==="tense")S.classList.add("tense")});fin();return}
+ if(instant){D.lines.forEach((l,k)=>{mk(k).classList.add("in");fxs(l)});fin();return}
  let t=700;D.lines.forEach((l,k)=>{if(k)t+=l.d??Math.min(900+l.t.length*28,4200);sched(()=>show(k),t)})}
 $("#tn").onclick=()=>{if(state==="ending")return;
  if(!tdone){const i=ti;playT(i,true);return}
